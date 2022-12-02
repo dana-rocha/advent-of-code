@@ -1,25 +1,26 @@
-# def main to call txt file
-# helper function to loop through txt file and count # of calories
 import argparse
-import sys
 
 def main(infile):
-    print(most_calories(infile))
+    print("The elf carrying the most calories: ", most_calories(infile))
+    print("How many calories are the top three elves carrying in total: ", top_three(infile))
 
 def process_data(infile):
     with open(infile) as f:
         elves = f.read().split("\n\n")
 
-    return [list(map(int, elf.strip().split("\n"))) for elf in elves]
+    data = [list(map(int, elf.strip().split("\n"))) for elf in elves]
+    summed_data = list(map(sum, data))
+    return summed_data
+
+def top_three(infile):
+    # Day 1 Part 2
+    cal_list = process_data(infile)
+    return sum(sorted(cal_list, reverse=True)[:3])
 
 def most_calories(infile):
-    current_max = 0
+    # Day 1 Part 1
     calorie_list = process_data(infile)
-
-    for elf in calorie_list:
-        if sum(elf) >= current_max:
-            current_max = sum(elf)
-    return current_max
+    return max(calorie_list)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
