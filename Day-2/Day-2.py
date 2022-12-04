@@ -71,15 +71,37 @@ def score_game(game_strategy):
     }
 
     my_rps = {
-        "X": "rock",
-        "Y": "paper",
-        "Z": "scissors"
+        "X": "lose",
+        "Y": "draw",
+        "Z": "win"
+    }
+
+    winners = {
+        "rock" : "scissors",
+        "scissors": "paper",
+        "paper" : "rock"
     }
 
     for game in game_strategy:
         opponent = opponent_rps[game[0]]
         me = my_rps[game[1]]
-        total += declare_winner(opponent, me)
+
+        if me == "Y":
+            # Game has to be a draw
+            my_play = opponent
+        elif me == "Z":
+            # I have to win the game
+            # Need to get the key of the winners dictionary
+            for key, val in winners.items():
+                if val == opponent:
+                    my_play = key
+                    return my_play
+        else:
+            # I have to lose the game
+            my_play = winners[opponent]
+
+        total += declare_winner(opponent, my_play)
+
     print (f"Your total score: {total}")
 
 def declare_winner(player1, player2):
@@ -101,7 +123,6 @@ def declare_winner(player1, player2):
         return 6 + points[player2]
     else:
         return 3 + points[player2]
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
