@@ -48,10 +48,10 @@ def process_data(infile):
     with open(infile) as f:
         games = f.read().split("\n")
 
-    meh = []
+    processed_list = []
     for game in games:
-        meh.append(game.split())
-    return(meh)
+        processed_list.append(game.split())
+    return(processed_list)
 
 def score_game(game_strategy):
     """
@@ -96,13 +96,10 @@ def declare_winner(player1, player2):
     }
 
     if player1 in winners.keys() and player2 == winners[player1]:
-        # print("player 1 wins")
         return 0 + points[player2]
     elif player2 in winners.keys() and player1 == winners[player2]:
-        # print("player 2 wins")
         return 6 + points[player2]
     else:
-        # print("draw")
         return 3 + points[player2]
 
 
